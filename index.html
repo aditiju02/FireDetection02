@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+    <title>Fire Dtetection!</title>
+    <style>
+      *:focus {
+        outline: none;
+      }
+      #video_feed {
+        box-sizing: border-box;
+        overflow: hidden;
+        display: inline-block;
+        border-radius: 10px;
+        position: relative;
+        margin-top: calc(50% - 180px);
+        margin-left: calc(50% - 240px);
+        width: 480px;
+        height: 360px;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.388);
+      }
+      .overlay {
+        position: absolute;
+        margin-top: 30px;
+        margin-left: 90px;
+        box-sizing: border-box;
+        overflow: hidden;
+        background-color: transparent;
+        width: 300px;
+        height: 300px;
+        z-index: 2;
+      }
+      @keyframes line-down {
+        0%,
+        100% {
+          margin-top: 30px;
+        }
+        80% {
+          margin-top: calc(20px + 300px);
+        }
+      }
+      .hor-line {
+        position: absolute;
+        margin-top: 30px;
+        margin-left: 93px;
+        height: 5px;
+        width: 295px;
+        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0.845);
+        border-radius: 100%;
+        z-index: 1;
+        animation: line-down 1.5s infinite linear;
+      }
+      
+      @keyframes trail-down {
+        0%,
+        100% {
+          height: 0;
+        }
+        80% {
+          height: 300px;
+        }
+      }
+      .trail {
+        position: absolute;
+        margin-top: 30px;
+        margin-left: 93px;
+        height: 0;
+        width: 295px;
+        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0.187);
+        z-index: 1;
+        animation: trail-down 1.5s infinite linear;
+      }
+      .divide {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .data {
+        box-sizing: border-box;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.447);
+        height: 150px;
+        width: 360px;
+        padding: 20px;
+        border-radius: 5px;
+        margin-left: calc(50% - 180px);
+        display: grid;
+        grid-template-rows: 1fr 2fr;
+        grid-template-columns: 6fr 1fr;
+      }
+    
+      #submit {
+        font-size: 0.5cm;
+        background: #84d2c4;
+        border: none;
+        border-radius: 4px;
+        margin-top: 5px;
+        margin-left: 10px;
+        grid-row: 1/2;
+        grid-column: 2/3;
+      }
+      #submit:hover {
+        background: #49c7b0;
+        cursor: pointer;
+      }
+   
+    </style>
+  </head>
+  <body>
+    <nav class="navbar nav navbar-expand-lg" style="background-color:#9bdacf;">
+      <div class="container">
+        <a class="navbar-brand" href="#" style="font-size: medium; font-weight: bold; color: black; display: flex; align-items: center; justify-content: center;">
+          <img src="{{ url_for('static', filename = 'Images/fireimg.png') }}" alt="Logo" width="30" height="30" class="d-inline-block" />
+          Fire Detection
+          <img src="{{ url_for('static', filename = 'Images/fireimg.png') }}" alt="Logo" width="30" height="30" class="d-inline-block" />
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav" style="color: white;">
+        </div>
+      </div>
+    </nav>
+
+    <div class="container whole">
+      <div class="row">
+        <div class="col">
+
+          <div class="data" style="display: flex;  justify-content: center; align-items: center; width: 110px; height: 70px; margin-top: 100px;">
+            <button id="submit" style="font-weight: bold;">Start</button>
+          </div>
+          <div id="resbox" class="data text-bg-danger p-3" style="display: flex; justify-content: center; align-items: center; width: 200px; height: 70px; margin-top: 100px; background-color:#9bdacf;">
+            <img src="{{ url_for('static', filename = 'Images/fireimg.png') }}" alt="Logo" width="30" height="30" class="d-inline-block" />
+            <label for="response" style="font-weight: bold;">Response: </label>
+            <output id="response" ></output>
+            <div class="">
+              <img class="overlayfire" id="fireimg" style="display: none" src="{{ url_for('static', filename = 'Images/fireimg.png') }}" width="300" height="700"/>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col">
+          <div id="video_feed">
+            <!-- original size 640*480 -->
+            <div class="hor-line"></div>
+            <div class="trail"></div>
+            <img class="overlay" src="{{ url_for('static', filename = 'Images/QR_box.png') }}" width="300" height="700" />
+            <video id="video" width="480" height="360" autoplay></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+      const video = document.getElementById('video')
+      const videoFeed = document.getElementById('video_feed')
+      const scanNumber = document.getElementById('scanNumber')
+      var answer
+      
+      function sendImageToBackend(imageData, scannedQrList) {
+        fetch('/scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image_data: imageData })
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data)
+            data = data.data
+            console.log(data)
+            if( data == "1")
+            {
+              var data1 = "Fire Detected"
+              document.getElementById("response").value = data1;
+              document.getElementById("fireimg").disabled = false;
+              document.getElementById("fireimg").style.diplay="block";
+              document.getElementById("resbox").style.backgroundColor="red";
+
+            }
+         //   else{
+            //  var data1 = ""
+            //  document.getElementById("response").value = data1;
+          //  }
+            
+            answer = data
+          })
+          .catch((error) => console.error('Error:', error))
+      }
+      
+      document.getElementById('submit').addEventListener('click', async () => {
+        document.getElementById('submit').disabled = true
+        // Get access to user's camera
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+        video.srcObject = stream
+        // .then(stream => video.srcObject = stream)
+        //.catch(error => console.error('Camera access denied:', error));
+        //var scannedQrList = []
+        //var target=document.getElementById('numQrs').value;
+        const intervalId = setInterval(async () => {
+          const canvas = document.createElement('canvas')
+          canvas.width = video.videoWidth
+          canvas.height = video.videoHeight
+          canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
+      
+          const imageData = canvas.toDataURL('image/jpeg') // Convert to image data URL
+          await sendImageToBackend(imageData)
+        }, 800)
+      })
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

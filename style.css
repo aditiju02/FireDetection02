@@ -1,0 +1,261 @@
+* {
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    overflow-x: hidden;
+  }
+
+.row1{
+    height: 100vh;
+    width: 100%;
+}
+
+.col1
+{
+    background-color: #8236e0;
+}
+
+.col2
+{
+    background-color: #9bdacf;
+    border-color: #84d2c4;
+    border-top-right-radius: 80px;
+    border-bottom-right-radius: 80px;
+}
+
+.col3 {
+    background-color:white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .formcard {
+    height: 400px;
+    background-color: white;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  
+  .vercenter {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+  }
+
+/* .col3
+{
+    background-color:bisque;
+    width: 100%;
+}
+
+.formcard{
+    width: 300px;
+    height: 400px;
+    background-color:rgb(216, 42, 42);
+}
+
+.vercenter
+{
+    width: 80%;
+    margin: auto;
+    position: absolute;
+    top: 50vh;
+    transform: translate(0, -50%)
+} */
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #84d2c4;
+    opacity: 0.5; /* Firefox */
+    font-weight: 100;
+    font-size: medium;
+  }
+ 
+.theme
+{
+    color:#84d2c4;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btntheme
+{
+    background-color:#84d2c4;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.btntheme:hover{
+    background-color:#4ec0ab;
+}
+
+.whole
+{
+    width: 100%;
+}
+
+.sidebar
+{
+    background-color:#E6E6E6;
+    width: 60px;
+    height: 92.55vh;
+    transition: all 0.3s;
+}
+
+.hide
+{
+    display: none;
+    /* visibility: hidden; */
+}
+
+.sidebar:hover
+{
+    background-color:#E6E6E6;
+    width: 145px;
+    height: 92.55vh;
+}
+
+.sidebar:hover .hide
+{
+    display:inline-block;
+    /* visibility: visible; */
+}
+
+.main
+{
+    background-color:white;
+    border-radius: 0px;
+    border-width: 20px;
+    border-color: #EDEEF0;
+    border-style: solid;
+    width: 70%;
+    height: 92.55vh;
+    /* height: auto; */
+}
+
+.back
+{
+    background-color: white;
+    margin-top: 10px;
+}
+
+.qr
+{
+    border-radius: 0px;
+    border-width: 2px;
+    border-color:#84d2c4;
+    border-style: solid;
+}
+
+.qrcard
+{
+    width: 400px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.back:hover
+{
+    background-color: #84d2c4;
+    margin-top: 10px;
+}
+
+.navback
+{
+    margin-right: 10px;
+}
+
+.navback:hover
+{
+    background-color: #13bc9d;
+    color: #84d2c4;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #13bc9d;
+    margin-right: 10px;
+}
+
+.box
+{
+    border-radius: 0px;
+    border-width: 5px;
+    border-color: #84d2c4;
+    border-style: solid;
+    /* height: 100%; */
+}
+
+.sidebaractive
+{
+    background-color: #84d2c4;
+}
+
+.navbaractive
+{
+    background-color: #13bc9d;
+    color: #84d2c4;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #13bc9d;
+    margin-right: 10px;
+}
+
+.horcenter{
+    display: flex;
+justify-content: center;
+}
+
+.verticenter {
+    /* /* width: 100%; */
+    height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* modified by pratik */
+  .navbar-nav li{
+    box-sizing: border-box;
+    padding-left: 3px;
+    overflow: hidden;
+    width: 145px;
+    height: 38px;
+    cursor: pointer;
+  }
+
+  h3,h4{
+    margin: 10px;
+  }
+
+  .custom-form{
+    padding-left: 10px;
+    padding-right: 10px;
+    display: grid;
+    grid-template-columns: 2fr 3fr 0.5fr 0.3fr;
+  }
+  .custom-select{
+    width: 90%;
+  }
+
+  .custom {
+    height: 72%;
+    box-sizing: border-box;
+    overflow-y: scroll;
+  }
+  .sticky {
+    position: sticky;
+    top: 0;
+  }
